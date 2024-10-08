@@ -1,0 +1,374 @@
+@import url("https://fonts.googleapis.com/css2?family=Aboreto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+body {
+  font-family: Poppins;
+  margin: 0;
+  font-size: 16px;
+  background-color: #4f8b69;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  list-style: none;
+}
+
+/* generar variables CSS */
+:root {
+  --border-color: #fff5;
+  --w-image: 500px;
+  --calculate: calc(3 / 2);
+} /* nos permite no perder tiempo cambiando cada vez que colocamos un valor de variable como valor de propiedad */
+
+header {
+  display: grid;
+  grid-template-columns: 80px 1fr calc(var(--w-image) * var(--calculate));
+  grid-template-rows: 80px;
+  position: relative;
+  z-index: 10;
+  border-bottom: 1px solid var(--border-color);
+}
+
+header .logo img {
+  width: 80%;
+}
+
+header .logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+header nav a {
+  color: #000;
+  font-weight: 400;
+}
+
+header nav ul {
+  height: 100%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 30px;
+  padding-right: 30px;
+}
+
+header nav {
+  border-left: 1px solid var(--border-color);
+}
+
+/* CAROUSEL */
+.carousel {
+  margin-top: -80px;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.carousel .list {
+  height: 100%;
+  position: relative;
+}
+
+.carousel .list::before {
+  position: absolute;
+  width: var(--w-image);
+  height: 100%;
+  content: "";
+  top: 0;
+  left: calc(100% - calc(var(--w-image) * var(--calculate)));
+  border-left: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.carousel .list::after {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  z-index: 10;
+
+  width: 400px;
+  height: 300px;
+  background-color: red;
+
+  filter: blur(150px);
+  opacity: 0.6;
+
+  border-radius: 20px 50px 110px 230px;
+  pointer-events: none;
+  content: "";
+}
+
+.carousel .list .item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.carousel .list .item .image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: end;
+
+  position: absolute;
+  top: 0;
+  left: calc(100% - var(--w-image) * var(--calculate));
+
+  width: var(--w-image);
+  height: 100%;
+  padding: 20px;
+
+  font-weight: 500;
+}
+
+.carousel .list .item .image img {
+  width: 90%;
+  margin-bottom: 20px;
+  filter: drop-shadow(0 150px 50px #9e0e0e55);
+}
+
+.carousel .list .item .image figcaption {
+  width: 70%;
+  margin-bottom: 30px;
+
+  font-family: "Aboreto";
+  font-weight: bold;
+  font-size: 1.3em;
+  text-align: right;
+}
+
+.carousel .list .item .main-content {
+  height: 100%;
+}
+
+/* related content for the beberage */
+.carousel .list .item .main-content {
+  height: 100%;
+  display: grid;
+  grid-template-columns: calc(100% - calc(var(--w-image) * var(--calculate)));
+}
+
+.carousel .list .item .main-content .content {
+  padding: 150px 20px 20px 80px;
+}
+
+.carousel .list .item .main-content .content h2 {
+  font-size: 5em;
+  font-family: "Aboreto";
+}
+
+.carousel .list .item .main-content .content .price {
+  font-size: 3em;
+  font-family: "Aboreto";
+  margin: 20px 0;
+}
+
+.carousel .list .item .main-content .content .addToCard {
+  border: none;
+
+  margin-top: 20px;
+  padding: 10px 40px;
+  background-color: #4f8b69;
+
+  color: white;
+  font-weight: 500;
+  font-size: large;
+  font-family: Poppins;
+
+  border-radius: 30px;
+}
+
+.arrows {
+  display: grid;
+  grid-template-columns: repeat(2, 50px);
+  grid-template-rows: 50px;
+  justify-content: end;
+  gap: 10px;
+
+  position: absolute;
+  bottom: 20px;
+  left: -20px;
+  width: calc(100% - var(--calculate) * var(--w-image));
+}
+
+.arrows button {
+  border: 1px solid var(--border-color);
+  background-color: transparent;
+
+  color: #fff;
+  font-family: monospace;
+  font-weight: 500;
+  font-size: larger;
+  line-height: 0;
+
+  box-shadow: 0 10px 40px #5555;
+
+  transition: 0.5s;
+
+  cursor: pointer;
+}
+
+.arrows button:hover {
+  background-color: #eee5;
+}
+
+/* show just the items that we need */
+.carousel .list .item {
+  display: none;
+}
+
+.carousel .list .item.active,
+.carousel .list .item.other_1,
+.carousel .list .item.other_2 {
+  display: block;
+}
+
+.carousel .list .item.active {
+  z-index: 2;
+}
+
+/* avoid interact with hidden items */
+.carousel .list .item.other_1,
+.carousel .list .item.other_2 {
+  pointer-events: none;
+}
+
+/* animation when is shown an item */
+.carousel .list .item.active .main-content {
+  animation: showContent 1s ease-in-out 1 forwards;
+}
+
+@keyframes showContent {
+  from {
+    clip-path: circle(0% at 70% 50%);
+  }
+  to {
+    clip-path: circle(100% at 70% 50%);
+  }
+}
+
+.next .item.other_1 {
+  z-index: 1;
+}
+
+.next .item .image img,
+.next .item .image figcaption {
+  animation: effectNext 0.5s ease-in-out 1 forwards;
+}
+
+@keyframes effectNext {
+  from {
+    transform: translateX(calc(var(--transform-from)));
+  }
+  to {
+    transform: translateX(calc(var(--transform-from) - var(--w-image)));
+  }
+}
+
+.next .item.active .image {
+  --transform-from: var(--w-image);
+}
+
+.next .item.other_1 .image {
+  z-index: 3;
+  --transform-from: 0px;
+  overflow: hidden;
+}
+
+.next .item.other_2 .image {
+  z-index: 3;
+  --transform-from: calc(var(--w-image) * 2);
+}
+
+.arrows {
+  z-index: 10;
+}
+
+/* prev */
+.prev .list .item .image img,
+.prev .list .item .image figcaption {
+  animation: effectPrev 0.5s ease-in-out 1 forwards;
+}
+
+@keyframes effectPrev {
+  from {
+    transform: translateX(calc(var(--transform-from)));
+  }
+  to {
+    transform: translateX(calc(var(--transform-from) + var(--w-image)));
+  }
+}
+
+.prev .list .item.active .image {
+  --transform-from: calc(var(--w-image) * -1);
+  overflow: hidden;
+}
+
+.prev .list .item.other_1 .image {
+  --transform-from: 0px;
+  z-index: 3;
+}
+
+.prev .list .item.other_2 .image {
+  --transform-from: calc(var(--w-image));
+  z-index: 3;
+}
+
+.prev .list .item.other_2 .main-content {
+  opacity: 0;
+}
+
+/* Responsiveness */
+@media screen and (max-width: 1023px) {
+  :root {
+    --calculate: 1;
+    --w-image: 400px;
+  }
+  .carousel .list .item .main-content .contant h2 {
+    font-size: 3em;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  header {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    grid-template-rows: 80px;
+    position: relative;
+    z-index: 10;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .carousel .list .item .image {
+    width: 100%;
+    left: 0;
+    justify-content: center;
+  }
+
+  .carousel .list .item .image img {
+    z-index: 200;
+  }
+
+  .carousel .list .item .image figcaption {
+    color: white;
+    width: 100%;
+    text-align: center;
+  }
+
+  .carousel .list .item .main-content .content {
+    display: none;
+  }
+
+  .arrows {
+    left: 50%;
+    justify-content: center;
+  }
+}
