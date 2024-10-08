@@ -327,6 +327,13 @@ header nav {
 }
 
 /* Responsiveness */
+@media screen and (max-width: 1600px) {
+  :root {
+    --calculate: 1.5;
+    --w-image: 400px;
+  }
+}
+
 @media screen and (max-width: 1023px) {
   :root {
     --calculate: 1;
